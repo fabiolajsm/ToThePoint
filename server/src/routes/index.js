@@ -2,6 +2,6 @@ const Router = require("express");
 const router = Router();
 const ChatsRoute = require("./Chats/Chats");
 
-router.use("/", TaskRoute);
+router.use("/", ChatsRoute);
 
 module.exports = router;

@@ -1,35 +1,16 @@
-const { Message, User } = require("../../db");
+const router = require("express").Router();
 
-
-router.get("/:id", async function (req, res, next) {
-  const id = req.params.id
-  try {
-    const messages = await Message.findAll({
-      where: {
-        task_id: id
-      }
-    })
-    if (messages) return res.send(messages);
-    return res.send({ msg: "no hay mensajes que mostrar" })
-  } catch (error) {
-    next(error);
-  }
+router.get("/", async function (req, res, next) {
+    try{
+        res.status(200).send("WHATABYTE: Food For Devs");
+    }
+    catch(err){
+        console.log(err.message)
+    }
 })
 
-router.post("/", async function (req, res, next) {
-  const { content, room, status, user } = req.body;
-  try {
-    const newMessage = await Message.create({
-      content,
-      task_id: room,
-      status
-    });
-    await user && newMessage.setWriter(user)
-    res.send(newMessage);
-  } catch (error) {
-    next(error);
-  }
-});
+//router.post("/", async function (req, res, next) {
+//});
 
 
 module.exports = router;

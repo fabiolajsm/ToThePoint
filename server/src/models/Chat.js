@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { TASK_NOTIFICATION_TYPES } = require("../../global_constants");
+//const { TASK_NOTIFICATION_TYPES } = require("../../global_constants");
 
 module.exports = (sequelize) => {
     sequelize.define(
