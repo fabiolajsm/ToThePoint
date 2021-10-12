@@ -19,8 +19,8 @@ module.exports = (sequelize) => {
                 allowNull: true,
                 defaultValue: false
             },
-            Adj: {
-                type: DataTypes.SOMETYPE,
+            Attached: {
+                type: DataTypes.TEXT,
                 allowNull: true,
             },
             Seen: {

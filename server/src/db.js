@@ -62,20 +62,25 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const { User, Message, Room } = sequelize.models;
 
+// This are the intermediate tables
+User.belongsToMany(Room, { as: "participant", through: "participants" });
+Room.belongsToMany(User, { as: "participant", through: "participants" });
+
+User.belongsToMany(Room, {  as: "administrator",  through: "administrators"});
+Room.belongsToMany(User, {  as: "administrator",  through: "administrators"});
+
+// This are the attributes for the foreignKeys 
 Room.belongsTo(User, { as: "creator", foreignKey: "creator_id" });
 User.hasMany(Room, { as: "creator", foreignKey: "creator_id" });
 
-// Language.belongsToMany(Task, { through: "tasks_languages", timestamps: false });
-// Task.belongsToMany(Language, { through: "tasks_languages", timestamps: false });
+Message.belongsTo(User, { as: "author", foreignKey: "author_id" });
+User.hasMany(Message, { as: "author", foreignKey: "author_id" });
 
-User.belongsToMany(Room, {
-  as: "participant",
-  through: "participants"
-});
-Room.belongsToMany(User, {
-  as: "room",
-  through: "participants"
-});
+Message.belongsTo(User, { as: "receiver", foreignKey: "receiver_id" });
+User.hasMany(Message, { as: "receiver", foreignKey: "receiver_id" });
+
+Message.belongsTo(Room, { as: "message_room", foreignKey: "room_id" });
+Room.hasMany(Message, { as: "message_room", foreignKey: "room_id" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

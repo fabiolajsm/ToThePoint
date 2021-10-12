@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     sequelize.define(
-        "User",
+        "user",
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            Profile_Picture: {
+            ProfilePicture: {
                 type: DataTypes.TEXT,
                 allownull: true,
                 defaultValue: "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png"
