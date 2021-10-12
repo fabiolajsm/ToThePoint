@@ -60,24 +60,22 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-// const { Task, User, Language } = sequelize.models;
+const { User, Message, Room } = sequelize.models;
 
-// Task.belongsTo(User, { as: "author", foreignKey: "author_id" });
-// User.hasMany(Task, { as: "author", foreignKey: "author_id" });
+Room.belongsTo(User, { as: "creator", foreignKey: "creator_id" });
+User.hasMany(Room, { as: "creator", foreignKey: "creator_id" });
 
 // Language.belongsToMany(Task, { through: "tasks_languages", timestamps: false });
 // Task.belongsToMany(Language, { through: "tasks_languages", timestamps: false });
 
-// User.belongsToMany(Task, {
-//   as: "assigned",
-//   through: "tasks_users",
-//   timestamps: false,
-// });
-// Task.belongsToMany(User, {
-//   as: "assigned",
-//   through: "tasks_users",
-//   timestamps: false,
-// });
+User.belongsToMany(Room, {
+  as: "participant",
+  through: "participants"
+});
+Room.belongsToMany(User, {
+  as: "room",
+  through: "participants"
+});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
